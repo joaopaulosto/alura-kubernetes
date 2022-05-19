@@ -1,1 +1,1 @@
-# alura-kubernetes
+# Artefatos do curso Kubernetes na platorma Alura
