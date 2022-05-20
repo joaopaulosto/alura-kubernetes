@@ -41,3 +41,14 @@ spec:
 `kubectl describe pod {nomde-do-pod}` exibe as configurações do Pod
 
 `kubectl get services` lista todos os serviços criados
+
+<b>NodePort</b> Permite expor Pods para fora do Cluter sendo acesso via IP (Do host) e Porta definida.
+
+No exemplo foi criado o serviço `svc-pod-1` por meio do arquivo `svc-pod-1.yaml` onde foi definido a porta de entrada externa 31000 e a saida interna 80, como mostra na lista de serviço `kubectl get svc` 
+
+|NAME                     |TYPE           |CLUSTER-IP      |EXTERNAL-IP   |PORT(S)        |AGE | 
+|-------------------------|---------------|----------------|--------------|---------------|----|
+|svc-pod-1                |NodePort       |10.101.165.35   |<none>        |<b>80:31000/TCP</b>   |23m |
+
+
+<b>LoadBanlancer</b> também é um NodePort e um CluterIP e é capaz a de interagir com um balanceador de Cloud Provider. Exemplo no arquivo `svc-pod-1-loadbalabcer.yaml`
