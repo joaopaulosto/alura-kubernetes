@@ -195,4 +195,45 @@ Caso seja necessário voltar uma determinada versão, não é necessário a exec
 
 
 
+<b> Volumes </b> Assim como nos containers Docker, os volumes permite persistir arquivos nos host de forma que se o Pod cair ou ver recriado, os arquivos gerados dentro do diretório do Volume não se perde.
+
+Para criar um Volume nos Pods, segue exemplo abaixo.
+
+
+```
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pod-volume
+spec:
+  containers:
+    - name: nginx-container
+      image: nginx:latest
+      volumeMounts:
+        - mountPath: /volume-dentro-do-container
+          name: primeiro-volume
+    - name: jenkins-container
+      image: jenkins/jenkins
+      volumeMounts:
+        - mountPath: /volume-dentro-do-container
+          name: primeiro-volume
+  volumes:
+    - name: primeiro-volume
+      hostPath:
+        path: /C/temp/primeiro-volume
+        type: Directory    
+```
+
+Dentro do contexto do container é referenciado o volume e sua configuração através do _volumeMounts_
+
+É´possível acessar um container criado dentro de um POD através do comando? `kubectl exec -it pod-volume --container nginx-container -- bash`  onde o valor passado após o comando <b>container</b> é o nome do container desejado.
+
+<b>Curiosidade dos Volumes</b>
+
+É possível criar automaticamente o diretório do Volume na maquina host, apenas trocando o valor do campo do Volume _type_ de _Directory_ para _DirectoryOrCreate_
+
+Para criar volumes no Kubernets no GCP é necessário a configuração dos seguintes plugins: PersistentVolumes e PersistentVolumeClaims
+
+
+
 
